@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/style.css}" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Infinite Auto</title>
+</head>
+<body>
+
+
+
+<div class="container">
+    <div class="bg-secondary jumbotron jumbotron-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#e3f2fd;">
+            <a class="navbar-brand" href="/">
+                <img src="https://res.cloudinary.com/dh18h6lff/image/upload/v1552078200/rx-jelly.png" width="60" height="35" class="d-inline-block align-top"  alt="logo"/>
+                Infinite Auto : The Best Car For You
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">HOME <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/addCategory">ADD A CATEGORY</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/addCar">ADD A CAR</a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="bg-transparent pl-4 pr-4 pt-4 back">
+        <div class="row">
+            <div class="col-sm-12 col-md-12" align="center">
+                <a href="/addCategory" class="btn btn-primary">ADD A CATEGORY</a><br/><br/>
+                <a href="/addCar" class="btn btn-secondary">ADD A CAR</a>
+
+            </div>
+        </div>
+        <hr/>
+    </div>
+
+
+    <!--category lists-->
+    <div class="p-3">
+        <div class="row">
+            <div class="col-sm-6 col-md-2 mt-2" th:each="category :${categories}">
+                <a class="nav-link btn btn-info" th:href="@{/categoryDetail/{id}(id=${category.id})}" th:text="${category.carCategory}"> </a>
+            </div>
+        </div>
+    </div>
+
+
+    <!---->
+    <div class="bg-transparent">
+        <div class="row"  >
+            <div class="col-sm-12 mt-2 col-md-4 "  th:each="type:${cars}">
+                <div class="card">
+                    <div class="card-body">
+                        <div th:if="${type.image}!= null">
+                            <img th:src="${type.image}" alt="vehicle picture" class="img-responsive img-fluid " />
+                        </div>
+                    </div>
+                    <div class="card-footer" align="center">
+                        <h5 th:text="${type.manufacturer}"></h5>
+                        <h6 th:text="${type.model}"></h6>
+                        <p th:text="${type.year}"></p>
+                        <p th:text="${type.price}"></p>
+
+
+                        <a th:href="@{/details/{id} (id=${type.id})}" class="btn btn-sm btn-secondary  mt-3 text-white">Details</a>
+
+                        <div sec:authorize="hasAuthority('ADMIN')">
+                        <a th:href="@{/update/{id} (id=${type.id})}" class="btn btn-sm btn-secondary mt-3 text-white">Update</a>
+
+                            <div sec:authorize="hasAuthority('ADMIN')">
+                            <a th:href="@{/delete/{id} (id=${type.id})}" class="btn btn-sm btn-secondary mt-3 text-white">Delete</a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+<div class="container">
+
+<div sec:authorize="isAuthenticated()">
+    Logged User: <span sec:authentication="name"></span><br>
+    Roles: <span sec:authentication="principal.authorities"></span>
+    <div sec:authorize="hasAuthority('ADMIN')">
+        <a href="/admin" class="badge badge-warning"><h3><Strong>Admin Page</Strong></h3></a></div>
+</div>
+
+<br/>
+<a href="/login">Login</a> -
+<a href="/logout">Logout</a> -
+<a href="/register">Register</a>
+
+</div>
+
+</body>
+</html>

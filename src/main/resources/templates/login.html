@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/style.css}" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Infinite Auto</title>
+</head>
+<body>
+
+
+
+<div class="container">
+    <div class="bg-secondary jumbotron jumbotron-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#e3f2fd;">
+            <a class="navbar-brand" href="/">
+                <img src="https://res.cloudinary.com/dh18h6lff/image/upload/v1552078200/rx-jelly.png" width="60" height="35" class="d-inline-block align-top"  alt="logo"/>
+                Infinite Auto : The Best Car For You
+            </a>
+        </nav>
+    </div>
+</div>
+<br/>
+            <br/>
+
+
+<div class="container">
+
+    <h1 align="center">Login Page</h1>
+<div th:if="${param.error}" align="center">
+    Invalid Username and password
+</div>
+
+<div th:if="${param.logout}" align="center">
+
+    You have been logged out
+</div>
+
+<form th:action="@{/login}" method="post" th:align="center">
+
+    <div><label>User name : <input type="text" name="username"/> </label></div>
+
+    <div><label>Password : <input type="password" name="password"/> </label></div>
+
+    <div><input class="btn-sm btn-success btn" type="submit" value="Sign In"/></div>
+
+
+</form>
+</div>
+
+</body>
+</html>

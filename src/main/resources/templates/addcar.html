@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/style.css}" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Infinite Auto</title>
+</head>
+<body>
+
+
+
+<div class="container">
+    <div class="bg-secondary jumbotron jumbotron-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#e3f2fd;">
+            <a class="navbar-brand" href="/">
+                <img src="https://res.cloudinary.com/dh18h6lff/image/upload/v1552078200/rx-jelly.png" width="60" height="35" class="d-inline-block align-top"  alt="logo"/>
+                Infinite Auto : The Best Car For You
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">HOME <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/addCategory">ADD A CATEGORY</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/addCar">ADD A CAR</a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="bg-transparent">
+        <h3 class="text-center p-3">ADD NEW CAR</h3>
+        <div class="row p-4">
+            <div class="col-sm-0 col-md-2">&nbsp;</div>
+            <div class="col-sm-12 col-md-8 mt-2">
+                <form th:action="@{/carProcess}"
+                      th:object="${car}" class="form-group"
+                      action="#" enctype="multipart/form-data" method="post">
+                    <!---------------->
+                    <!--hidden ID-->
+                    <input type="hidden" class="form-control" th:field="*{id}"/>
+                    <!---->
+                    <div class="form-group" align="center">
+                        <label class="btn-sm btn-secondary active">Manufacturer</label>
+                        <input type="text" class="form-control" th:field="*{manufacturer}" placeholder="Enter a manufacturer" required/>
+                    </div>
+                    <div class="form-group" align="center">
+                        <label class="btn-sm btn-secondary active">Model</label>
+                        <input type="text" class="form-control" placeholder="Enter a model" th:field="*{model}" required/>
+                    </div>
+                    <div class="form-group" align="center">
+                        <label class="btn-sm btn-secondary active">Year</label>
+                        <input type="number" min="1950" max="2020" class="form-control" th:field="*{year}" required/>
+                    </div>
+                    <div class="form-group" align="center">
+                        <label class="btn-sm btn-secondary active">Price</label>
+                        <input type="number" class="form-control" th:field="*{price}"  required/>
+                    </div>
+                    <div class="form-group" align="center">
+                        <label class="btn-sm btn-secondary active">Category Type</label>
+                        <select class="form-control" th:field="*{category}">
+                            <option value="">--</option>
+                            <option th:each="carCat :${categories}" th:value="${carCat.id}"
+                                    th:utext="${carCat. carCategory}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group" align="center">
+                        <label class="btn-sm btn-secondary active">Car Image</label>
+                        <input type="file" class="form-control" name="file" required/>
+                    </div>
+                    <div align="center" class="mt-4 form-group">
+                        <input class="btn-sm btn-success btn" type="submit" name="SUBMIT"/>
+                    </div>
+
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+</div>
+</body>
+</html>
